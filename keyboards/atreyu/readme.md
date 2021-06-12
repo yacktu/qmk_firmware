@@ -1,6 +1,6 @@
 # atreyu
 
-![atreyu]()
+![atreyu](https://github.com/climent/atreyu/raw/main/pictures/PXL_20210609_174723137.jpg?raw=true)
 
 A short description of the keyboard/project
 
