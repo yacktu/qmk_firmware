@@ -36,14 +36,6 @@ enum custom_keycodes {
 #define KC_RST RESET
 #define KC_BL_S BL_STEP
 #define KC_BL_T BL_TOGG
-#define KC_R_TG RGB_TOG
-#define KC_R_MO RGB_MOD
-#define KC_R_HI RGB_HUI
-#define KC_R_HD RGB_HUD
-#define KC_R_SI RGB_SAI
-#define KC_R_SD RGB_SAD
-#define KC_R_VI RGB_VAI
-#define KC_R_VD RGB_VAD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_kc(
