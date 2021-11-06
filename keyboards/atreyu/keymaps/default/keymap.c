@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----+-----+-----+-----+-----+-----.              ,-----+-----+-----+-----+-----+-----.
      LSFT , Z   , X   , C   , V   , B   ,                N   , M   ,COMM ,DOT  ,SLSH ,RSFT ,
   //`-----+-----+-----+-----+-----+-----+-----/  \-----+-----+-----+-----+-----+-----+-----'
-                  LWR ,LALT ,LGUI , ENT ,LBRC ,   RBRC, SPC , RSE, ENT , RCTRL 
+                  LWR ,LALT ,LGUI , LCTL_T(KC_ENT) ,LBRC ,   RBRC, SPC , RSE, ENT , RCTRL 
                 
   //            `-----+-----+-----+-----+-----'  `-----+-----+-----+-----+-----'
   ),
@@ -75,11 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(\
-  _______, _______, _______, _______, _______, _______,                    KC_HOME, KC_END , _______, KC_LCBR, KC_RCBR, KC_TILD, \
+  _______, _______, _______, _______, _______, _______,                    C(KC_LEFT), C(KC_RGHT), _______, KC_LCBR, KC_RCBR, KC_TILD, \
   _______, _______, _______, _______, RESET  , _______,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
   _______, _______, _______, _______, _______, _______,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
-  _______, _______, _______, _______, _______, _______,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
-                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , G(C(KC_Q)), _______, KC_RALT, KC_RGUI \
+  _______, _______, _______, _______, _______, _______,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, G(C(KC_Q)), \
+                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RALT, KC_RGUI \
 )
 
 
