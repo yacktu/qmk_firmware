@@ -150,42 +150,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   mod_state = get_mods();
   switch (keycode) {
-/*
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-*/
     case KC_ESC:
       if ((get_mods() & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI)) {
         if (record->event.pressed) {
@@ -200,24 +164,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case KC_TAB:
       {
-      static bool tab_key_registered;
-      if (record->event.pressed) {
-        if ((get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTRL))) == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTRL))) {
-          del_mods(MOD_MASK_GUI);
-          add_mods(MOD_MASK_SHIFT);
-          register_code(KC_TAB);
-          tab_key_registered = true;
-          set_mods(mod_state);
-          return false;
+        static bool tab_key_registered;
+        if (record->event.pressed) {
+          if ((get_mods() & (MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTRL))) == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_LCTRL))) {
+            del_mods(MOD_MASK_GUI);
+            add_mods(MOD_MASK_SHIFT);
+            register_code(KC_TAB);
+            tab_key_registered = true;
+            set_mods(mod_state);
+            return false;
+          }
+        } else {
+          if (tab_key_registered) {
+            unregister_code(KC_TAB);
+            tab_key_registered = false;
+            return false;
+          }
+          return true;
         }
-      } else {
-        if (tab_key_registered) {
-          unregister_code(KC_TAB);
-          tab_key_registered = false;
-          return false;
-        }
-        return true;
-      }
       }
       return true;
       break;
