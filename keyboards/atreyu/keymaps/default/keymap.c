@@ -20,11 +20,13 @@
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
+#define _ADJUST 3
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LWR,
-  RSE
+  RSE,
+  ADJ
 };
 
 #define KC_ KC_TRNS
@@ -36,6 +38,7 @@ enum custom_keycodes {
 #define KC_RST RESET
 #define KC_BL_S BL_STEP
 #define KC_BL_T BL_TOGG
+#define KC_LCTL_T LCTL_T
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_kc(
@@ -54,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_LOWER] = LAYOUT( \
   KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                   KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
-  _______, _______, KC_PGUP, _______, TG(_RAISE), AG_TOGG,                _______, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC, KC_DEL , \
-  _______, KC_HOME, KC_PGDN,  KC_END, _______, _______,                   _______, _______, _______, KC_LPRN, KC_RPRN, _______, \
+  _______, KC_VOLU, _______, _______, TG(_RAISE), AG_TOGG,                _______, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC, KC_DEL , \
+  _______, KC_VOLD, _______, _______, _______, _______,                   _______, _______, _______, KC_LPRN, KC_RPRN, _______, \
   _______, KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT),             KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
                              _______, _______, _______, KC_SPC , KC_VOLD, KC_VOLU, _______, _______, _______, _______\
 ),
@@ -76,10 +79,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT(\
   _______, _______, _______, _______, _______, _______,                    C(KC_LEFT), C(KC_RGHT), _______, KC_LCBR, KC_RCBR, KC_TILD, \
-  _______, _______, _______, _______, RESET  , _______,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
+  _______, _______, _______, _______, KC_HOME, KC_END ,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
   _______, _______, _______, _______, _______, _______,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
   _______, _______, _______, _______, _______, _______,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, G(C(KC_Q)), \
-                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RALT, KC_RGUI \
+                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT \
+),
+
+[_ADJUST] = LAYOUT(\
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    KC_HOME, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    KC_END , KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT \
 )
 
 
@@ -122,31 +133,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
+
     case LWR:
       if (record->event.pressed) {
         layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
+
     case RSE:
       if (record->event.pressed) {
         layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
-      case KC_ESC:
-      if ((get_mods() & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI)) {
+
+    case ADJ:
+      if (record->event.pressed) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
+      }
+      return false;
+      break;
+
+    case KC_ESC:
+     if ((get_mods() & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI)) {
         if (record->event.pressed) {
           register_code(KC_GRV);
         } else {
