@@ -30,7 +30,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-//#define _______ KC_TRNS
 
 #define KC_FN FN
 #define KC_LWR LWR
@@ -39,6 +38,7 @@ enum custom_keycodes {
 #define KC_BL_S BL_STEP
 #define KC_BL_T BL_TOGG
 #define KC_LCTL_T LCTL_T
+#define KC_GUI_T GUI_T
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_kc(
