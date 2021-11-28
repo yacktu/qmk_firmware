@@ -46,10 +46,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT( \
-  KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                   KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
-  _______, _______, KC_PGUP, _______, TG(_RAISE), AG_TOGG,                _______, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC, KC_DEL , \
-  _______, KC_HOME, KC_PGDN,  KC_END, _______, _______,                   _______, _______, _______, KC_LPRN, KC_RPRN, _______, \
-  _______, KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT), KC_VOLD, KC_VOLU, KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
+  KC_GRV ,    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                         KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
+  _______,    KC_VOLU, _______, _______, TG(_RAISE), AG_TOGG,                      _______, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC, KC_DEL , \
+  _______,    KC_VOLD, _______, _______, _______, _______,                         _______, _______, _______, KC_LPRN, KC_RPRN, _______, \
+  G(C(KC_Q)), KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT), KC_VOLD, KC_VOLU, KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
                              _______, _______, _______, KC_SPC , _______, _______, _______, _______\
 ),
 /* RAISE
@@ -69,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT(\
   _______, _______, _______, _______, _______, _______,                    C(KC_LEFT), C(KC_RGHT) , _______, KC_LCBR, KC_RCBR, KC_TILD, \
-  _______, _______, _______, _______, _______, _______,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
-  _______, _______, _______, _______, _______, _______,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
-  _______, _______, _______, _______, _______, _______, KC_HOME, KC_END  , KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, G(C(KC_Q)), \
+  _______, KC_VOLU, _______, _______, KC_HOME, KC_END ,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
+  _______, KC_VOLD, C(S(KC_TAB)), _______, C(KC_TAB), _______,             KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
+  _______, _______, _______, _______, _______, _______, KC_HOME, KC_END  , KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
                              _______, _______, _______, KC_SPC , _______ , _______, KC_RGUI, KC_RALT \
 ),
   /*_______, C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                     KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
