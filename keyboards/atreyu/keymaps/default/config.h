@@ -21,5 +21,7 @@
 #include "config_common.h"
 
 // place overrides here
+#undef TAPPING_TERM
+#define TAPPING_TERM 250
 
 #endif

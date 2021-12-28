@@ -39,6 +39,7 @@ enum custom_keycodes {
 #define KC_BL_T BL_TOGG
 #define KC_LCTL_T LCTL_T
 #define KC_GUI_T GUI_T
+#define KC_ALT_T ALT_T
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT_kc(
@@ -51,31 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----+-----+-----+-----+-----+-----.              ,-----+-----+-----+-----+-----+-----.
      LSFT , Z   , X   , C   , V   , B   ,                N   , M   ,COMM ,DOT  ,SLSH ,RSFT ,
   //`-----+-----+-----+-----+-----+-----+-----/  \-----+-----+-----+-----+-----+-----+-----'
-                  LWR ,LALT ,GUI_T(KC_ENT),LCTL_T(KC_ENT) ,LBRC ,   RBRC, SPC , RSE, ENT , RCTRL 
+                  LWR ,LALT ,GUI_T(KC_ENT),ALT_T(KC_ENT) ,LBRC ,   RBRC, SPC , RSE, ENT , RCTRL 
                 
   //            `-----+-----+-----+-----+-----'  `-----+-----+-----+-----+-----'
   ),
-  [_LOWER] = LAYOUT( \
-  KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                   KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
-  _______, KC_VOLU, _______, _______, TG(_RAISE), AG_TOGG,                _______, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC, KC_DEL , \
-  _______, KC_VOLD, _______, _______, _______, _______,                   _______, _______, _______, KC_LPRN, KC_RPRN, _______, \
-  G(C(KC_Q)), KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT),             KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
-                             _______, _______, _______, KC_SPC , KC_VOLD, KC_VOLU, _______, _______, _______, _______\
-),
-/* RAISE
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |   {  |   }  |   ~  |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | LOCK | PgUp |      |      |      |                    | PgUp |  XX  | Up   |   [  |   ]  | Del  |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      | Home | PgDn | End  |      |      |-------.    ,-------| PgDn | Left | Down |Right |   |  |Enter |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|   _  |   -  |   =  |   +  |   \  |      |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LOWER| LAlt | LGUI | /Enter  /       \Space \  |RAISE | RAlt | RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
 
 [_RAISE] = LAYOUT(\
   _______, _______, _______, _______, _______, _______,                    C(KC_LEFT), C(KC_RGHT), _______, KC_LCBR, KC_RCBR, KC_TILD, \
@@ -83,6 +63,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, C(S(KC_TAB)), _______, C(KC_TAB), _______,             KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
   _______, _______, _______, _______, _______, _______,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
                     _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT \
+),
+
+[_LOWER] = LAYOUT( \
+  KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                   KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
+  _______, KC_VOLU, _______, _______, TG(_RAISE), AG_TOGG,                _______, KC_BSLS, KC_PIPE, KC_LBRC, KC_RBRC, KC_DEL , \
+  _______, KC_VOLD, _______, _______, _______, _______,                   _______, _______, _______, KC_LPRN, KC_RPRN, _______, \
+  G(C(KC_Q)), KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT),          KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
+                             _______, _______, _______, KC_SPC , KC_VOLD, KC_VOLU, _______, _______, _______, _______\
 ),
 
 [_ADJUST] = LAYOUT(\
