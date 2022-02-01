@@ -20,15 +20,13 @@
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _ADJUST 3
-#define _NAV 4
-#define _SYM 5
+#define _NAV 3
+#define _SYM 4
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LWR,
   RSE,
-  ADJ,
   NAV,
   SYM
 };
@@ -54,32 +52,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB  , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                KC_Y   , KC_U   , KC_I   , KC_O   , KC_P    ,KC_BSPC ,
      KC_LCTRL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN ,LT(_SYM,KC_QUOT) ,
      KC_LSFT , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,                KC_N   , KC_M   , KC_COMM, KC_DOT  ,KC_SLSH ,RSFT_T(KC_ENT) ,
-                  LWR ,KC_LALT ,GUI_T(KC_ENT),KC_ENT ,KC_LBRC ,   KC_RBRC, KC_SPC , RSE, OSL(_NAV) , KC_RCTRL 
+               TO(_LOWER),KC_LALT ,GUI_T(KC_ENT),KC_ENT ,KC_LBRC ,   KC_RBRC, KC_SPC , TO(_RAISE), OSL(_NAV), KC_RCTRL 
                 
   ),
-
 [_RAISE] = LAYOUT(\
-  _______, _______, _______, _______, _______, _______,                    KC_HOME, KC_END , _______, KC_LCBR, KC_RCBR, KC_TILD, \
-  _______, _______, _______, _______, KC_HOME, KC_END ,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
-  _______, _______, _______, _______, KC_NAV , _______,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
-  _______, _______, _______, _______, _______, _______,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
-                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TILD, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_END ,                    KC_PGUP, KC_HOME, KC_UP  , KC_END , KC_VOLU, KC_DEL , \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_NAV , XXXXXXX,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_ENT , \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
+                    XXXXXXX, _______, _______, TO(_QWERTY), KC_HOME, KC_END  , _______, XXXXXXX, KC_RGUI, KC_RALT \
 ),
-
 [_LOWER] = LAYOUT( \
   KC_GRV ,    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                         KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
   _______,    KC_VOLU, _______, _______, TG(_RAISE), AG_TOGG,                      _______, _______, _______, _______, _______, KC_DEL , \
   G(C(KC_Q)), KC_VOLD, _______, _______, _______, _______,                         _______, C(KC_LEFT), _______, C(KC_RGHT), _______, _______, \
   _______,    KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT),                   _______, C(S(KC_TAB)), C(KC_R) , C(KC_TAB), _______, _______, \
-                             _______, _______, _______, KC_SPC , KC_VOLD, KC_VOLU, _______, _______, _______, _______\
+                        _______, _______, _______, TO(_QWERTY) , KC_VOLD, KC_VOLU, _______, _______, _______, _______\
 ),
-
-[_ADJUST] = LAYOUT(\
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    KC_HOME, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    KC_END , C(S(KC_TAB)), XXXXXXX, C(KC_TAB), XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
-                    _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT \
+[_SYM] = LAYOUT(
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, _______,
+                    XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 [_NAV] = LAYOUT(
   XXXXXXX , C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,
@@ -88,13 +83,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, C(S(KC_TAB)), XXXXXXX, C(KC_TAB), XXXXXXX, _______,
                    XXXXXXX, XXXXXXX, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX,G(KC_SPC),XXXXXXX, KC_ENT, XXXXXXX
 ),
-[_SYM] = LAYOUT(
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, _______,
-  KC_LCTRL,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, _______,
-                   XXXXXXX, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
-)
 
 };
 
@@ -176,10 +164,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LWR:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -187,12 +173,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RSE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        update_tri_layer(_NAV, _RAISE, _NAV);
       } else {
         layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        update_tri_layer(_NAV, _RAISE, _NAV);
       }
       return false;
       break;
@@ -202,15 +184,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_NAV);
       } else {
         layer_off(_NAV);
-      }
-      return false;
-      break;
-
-    case ADJ:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
       }
       return false;
       break;
