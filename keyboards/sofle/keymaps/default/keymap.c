@@ -152,10 +152,10 @@ static void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
     oled_write_ln_P(PSTR("MODE"), false);
     oled_write_ln_P(PSTR(""), false);
-    if (keymap_config.swap_lctl_lgui) {
-        oled_write_ln_P(PSTR("MAC"), false);
+    if (keymap_config.swap_lalt_lgui) {
+        oled_write_ln_P(PSTR("SWAP"), true);
     } else {
-        oled_write_ln_P(PSTR("WIN"), false);
+        oled_write_ln_P(PSTR("swap"), false);
     }
 
     switch (get_highest_layer(default_layer_state)) {
