@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TILD ,   C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                      C(KC_6), C(KC_7),      C(KC_8), C(KC_9),    C(KC_0), KC_TILD,
   XXXXXXX ,   C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0),                      XXXXXXX, KC_VOLD,      KC_MUTE, KC_VOLU,    XXXXXXX, XXXXXXX,
   G(C(KC_Q)), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, C(KC_LEFT),   XXXXXXX, C(KC_RGHT), XXXXXXX, XXXXXXX,
-  XXXXXXX ,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, C(S(KC_TAB)), G(KC_R), C(KC_TAB),  XXXXXXX, _______,
+  XXXXXXX ,   XXXXXXX, XXXXXXX, XXXXXXX, C(KC_LEFT), C(KC_RGHT), XXXXXXX,  XXXXXXX,   XXXXXXX, C(S(KC_TAB)), G(KC_R), C(KC_TAB),  XXXXXXX, _______,
                        XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, KC_SPC,   G(KC_SPC), XXXXXXX, KC_ENT,       XXXXXXX, XXXXXXX
 ),
  
@@ -248,13 +248,16 @@ uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     mod_state = get_mods();
     switch (keycode) {
-        case LT(0,KC_SPC):
-            if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_SPC); // Intercept tap function to send Ctrl-C
-            } else if (record->event.pressed) {
-                tap_code16(G(KC_SPC)); // Intercept hold function to send Ctrl-V
-            }
-            return false;
+        case LT(_SYM,KC_QUOT):
+          // Intercept hold action when shift is held.
+          if ((get_mods() & MOD_MASK_SHIFT) != 0 &&
+              !record->tap.count) {
+	     if (record->event.pressed) {
+                tap_code(KC_QUOT);  // Type Shift + quote.
+	     }
+             return false;  // Skip default handling.
+          }
+          break;  // Otherwise continue with default handling.
         case KC_QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);

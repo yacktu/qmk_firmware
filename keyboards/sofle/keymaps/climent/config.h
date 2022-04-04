@@ -14,8 +14,10 @@ for more options.
 
 #define CUSTOM_LAYER_READ //if you remove this it causes issues - needs better guarding
 
-#undef TAPPING_TERM
-#define TAPPING_TERM 150
+#ifdef TAPPING_TERM
+    #undef TAPPING_TERM
+    #define TAPPING_TERM 150
+#endif
 #define TAPPING_TERM_PER_KEY
 #define RETRO_TAPPING
 
@@ -25,3 +27,32 @@ for more options.
 #define SPLIT_TRANSACTION_IDS_KB MOUSE_SYNC
 #define SPLIT_LAYER_STATE_ENABLE
 
+#define RGBLIGHT_SLEEP
+#define RGBLIGHT_LAYERS
+
+/* ws2812 RGB LED */
+#define RGB_DI_PIN D3
+
+#ifdef RGBLIGHT_ENABLE
+    #undef RGBLED_NUM
+
+    //#define RGBLIGHT_ANIMATIONS
+    //#define RGBLIGHT_EFFECT_BREATHING
+    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+    //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    //#define RGBLIGHT_EFFECT_SNAKE
+    //#define RGBLIGHT_EFFECT_KNIGHT
+    //#define RGBLIGHT_EFFECT_CHRISTMAS
+    //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
+    //#define RGBLIGHT_EFFECT_RGB_TEST
+    //#define RGBLIGHT_EFFECT_ALTERNATING
+    //#define RGBLIGHT_EFFECT_TWINKLE
+
+    #define RGBLED_NUM 14
+    #define RGBLED_SPLIT { 7, 7 } // haven't figured out how to use this yet
+
+    #define RGBLIGHT_LIMIT_VAL 120
+    #define RGBLIGHT_HUE_STEP 10
+    #define RGBLIGHT_SAT_STEP 17
+    #define RGBLIGHT_VAL_STEP 17
+#endif
