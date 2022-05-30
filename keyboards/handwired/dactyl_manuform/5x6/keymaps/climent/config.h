@@ -17,11 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#undef MATRIX_COL_PINS
-#define MATRIX_COL_PINS { B5, B4, E6, D7, C6, D4 }
-
+#ifdef TAPPINT_TERM
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
+#endif
 
 #define USE_SERIAL
 
@@ -29,3 +28,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_LEFT
 
 #define KINETIC_SPEED
+
+#ifdef SOFT_SERIAL_PIN
+#undef SOFT_SERIAL_PIN
+#define SOFT_SERIAL_PIN D2
+#ifdef
+
+#define RGBLIGHT_LIMIT_VAL 150
+#define RGBLIGHT_ANIMATIONS
+
+// WS2812 RGB LED strip input and number of LEDs
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 31
+#define RGBLED_SPLIT {31, 31}
+#define RGBLIGHT_DEFAULT_HUE 169
+
+/* define if matrix has ghost */
+//#define MATRIX_HAS_GHOST
+
+/* number of backlight levels */
+#define BACKLIGHT_LEVELS 3
+#define RGBLIGHT_LAYERS
+//#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+/* use general brightness for layers */
+//#define RGBLIGHT_LAYERS_RETAIN_VAL

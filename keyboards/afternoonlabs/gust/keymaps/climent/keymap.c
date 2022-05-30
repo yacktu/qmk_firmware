@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├─────────┼─────────┼─────────┤
      KC_LEFT,     KC_DOWN,  KC_RIGHT,
   //├─────────┼─────────┼─────────┤
-     _______,    G(KC_GRV), MO(_RAISE)
+     LT(_RAISE, 0),    G(KC_GRV), TO(_MAIN)
   //└─────────┴─────────┴─────────┘
   ),
   [_RAISE] = LAYOUT(
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├─────────┼─────────┼─────────┤
      G(KC_LEFT),  TO(_SMALLMIDDLES), G(KC_RIGHT),
   //├─────────┼─────────┼─────────┤
-     C(G(KC_Q)),  _______, _______ 
+     _______,  _______, TO(_MAIN)
   //└─────────┴─────────┴─────────┘
   ),
   [_CORNERS] = LAYOUT(
@@ -85,3 +85,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
+
+#ifdef COMBO_ENABLE
+
+enum combo_events {
+    CAPS_LOCK,
+    C_A_LOCK_L,
+    C_A_LOCK_R,
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH; // remove the COMBO_COUNT define and use this instead!
+
+const uint16_t PROGMEM caps_lock[] = {KC_LSFT, KC_RSFT, COMBO_END};
+const uint16_t PROGMEM c_a_lock_r[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM c_a_lock_l[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM email_combo[] = {KC_ESC, KC_GRV, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(caps_lock, KC_CAPS),
+    COMBO(c_a_lock_r, C(KC_LALT)),
+    COMBO(c_a_lock_l, C(KC_LALT)),
+    COMBO_ACTION(email_combo),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case EM_EMAIL:
+      if (pressed) {
+        SEND_STRING("climent@gmail.com");
+      }
+      break;
+  }
+}
+
+#endif

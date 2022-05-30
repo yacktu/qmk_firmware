@@ -21,6 +21,7 @@
 #include "transactions.h"
 #include "timer.h"
 #include <string.h>
+#include "lib/lib8tion/lib8tion.h"
 
 
 enum sofle_layers {
@@ -55,8 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //KC_LCTRL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                   KC_H,    KC_J,    KC_K,    KC_L,    LT(_NAV,KC_SCLN), LT(_SYM,KC_QUOT),
      KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE, KC_MUTE, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
 	 KC_NAV, KC_LOWER, KC_LALT ,KC_LGUI, KC_ENT,                       KC_SPC,KC_RAISE,KC_NAV, XXXXXXX, KC_RCTRL
-	 //KC_NAV, KC_LOWER, KC_LALT ,KC_LGUI, KC_ENT,                       KC_SPC,KC_RAISE,OSL(_NAV), XXXXXXX, KC_RCTRL
-	 //KC_LOWER, XXXXXXX, KC_LALT ,GUI_T(KC_ENT), KC_ENT,             KC_SPC,KC_RAISE,OSL(_NAV), XXXXXXX, KC_RCTRL
+	 //KC_NAV, KC_LOWER, KC_LALT ,KC_LGUI, GUI_T(KC_ENT),                       KC_SPC,KC_RAISE,KC_NAV, XXXXXXX, KC_RCTRL
 ),
 
 [_RAISE] = LAYOUT(\
@@ -132,6 +132,7 @@ const uint16_t PROGMEM caps_lock[] = {KC_LSFT, KC_RSFT, COMBO_END};
 const uint16_t PROGMEM c_a_lock_r[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM c_a_lock_l[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM email_combo[] = {KC_ESC, KC_GRV, COMBO_END};
+
 combo_t key_combos[] = {
     COMBO(caps_lock, KC_CAPS),
     COMBO(c_a_lock_r, C(KC_LALT)),
@@ -166,6 +167,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef OLED_ENABLE
 
+/*
 static void render_logo(void) {
     static const char PROGMEM qmk_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
@@ -226,13 +228,6 @@ static void print_status_narrow(void) {
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
 }
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    }
-    return rotation;
-}
-
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
@@ -240,6 +235,171 @@ bool oled_task_user(void) {
         render_logo();
     }
     return false;
+}
+*/
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    return rotation;
+}
+
+static bool caps_lock_on = false;
+
+bool oled_task_user(void) {
+    static const char PROGMEM hr[] = {
+        0x81, 0x81, 0x81, 0x81, 
+        0x00,
+    };
+
+    static const char PROGMEM logo[] = {
+        0x80, 0x84, 0x85, 0x80,
+        0x80, 0x86, 0x87, 0x80,
+        0x00,
+    };
+
+    static const char PROGMEM empty [] = {
+        0x80, 0x80, 0x80, 0x80,
+        0x80, 0x80, 0x80, 0x80,
+        0x00,
+    };
+
+    static const char PROGMEM layer0[] = {
+        0x90, 0x91, 0x80, 0x80,
+        0x92, 0x93, 0x80, 0x80,
+        0x00,
+    }; 
+
+    static const char PROGMEM layer1[] = {
+        0x80, 0x80, 0x94, 0x95, 
+        0x80, 0x80, 0x96, 0x97, 
+        0x00,
+    }; 
+
+    static const char PROGMEM layer01[] = {
+        0x90, 0x91, 0x94, 0x95, 
+        0x92, 0x93, 0x96, 0x97, 
+        0x00,
+    }; 
+
+    static const char PROGMEM layer2[] = {
+        0x98, 0x99, 0x80, 0x80,
+        0x9a, 0x9b, 0x80, 0x80,
+        0x00,
+    }; 
+
+    static const char PROGMEM layer3[] = {
+        0x80, 0x80, 0x9c, 0x9d, 
+        0x80, 0x80, 0x9e, 0x9f, 
+        0x00,
+    }; 
+
+    static const char PROGMEM layer23[] = {
+        0x98, 0x99, 0x9c, 0x9d, 
+        0x9a, 0x9b, 0x9e, 0x9f, 
+        0x00,
+    }; 
+
+    static const char PROGMEM mod0[] = {
+        0xa0, 0xa1, 0x80, 0x80,
+        0xa2, 0xa3, 0x80, 0x80,
+        0x00,
+    }; 
+
+    static const char PROGMEM mod1[] = {
+        0x80, 0x80, 0xa4, 0xa5, 
+        0x80, 0x80, 0xa6, 0xa7, 
+        0x00,
+    }; 
+
+    static const char PROGMEM mod01[] = {
+        0xa0, 0xa1, 0xa4, 0xa5, 
+        0xa2, 0xa3, 0xa6, 0xa7, 
+        0x00,
+    }; 
+
+    static const char PROGMEM mod2[] = {
+        0xa8, 0xa9, 0x80, 0x80,
+        0xaa, 0xab, 0x80, 0x80,
+        0x00,
+    }; 
+
+    static const char PROGMEM mod3[] = {
+        0x80, 0x80, 0xac, 0xad, 
+        0x80, 0x80, 0xae, 0xaf, 
+        0x00,
+    }; 
+
+    static const char PROGMEM mod23[] = {
+        0xa8, 0xa9, 0xac, 0xad, 
+        0xaa, 0xab, 0xae, 0xaf, 
+        0x00,
+    }; 
+
+    static const char PROGMEM capslock_enabled[] = {
+        0x80, 0xb0, 0xb1, 0x80,
+        0x80, 0xb2, 0xb3, 0x80,
+        0x00,
+    };
+
+    static const char PROGMEM capslock_disabled[] = {
+        0x80, 0xb4, 0xb5, 0x80,
+        0x80, 0xb6, 0xb7, 0x80,
+        0x00,
+    };
+
+    oled_write_P(logo, false);
+    oled_write_P(hr, false);
+
+    bool layer0_on = IS_LAYER_ON(_QWERTY);
+    bool layer1_on = IS_LAYER_ON(_RAISE);
+    bool layer2_on = IS_LAYER_ON(_LOWER);
+    bool layer3_on = IS_LAYER_ON(_NAV);
+
+    // we are not doing one shot mods here
+    static uint8_t mods;
+    mods = get_mods();
+    bool mod0_on = mods & MOD_MASK_CTRL;
+    bool mod1_on = mods & MOD_MASK_SHIFT;
+    bool mod2_on = mods & MOD_MASK_ALT;
+    bool mod3_on = mods & MOD_MASK_GUI;
+
+    if (layer0_on) {
+        oled_write_P(layer1_on ? layer01 : layer0, false);
+    } else {
+        oled_write_P(layer1_on ? layer1 : empty, false);
+    }
+
+    if (layer2_on) {
+        oled_write_P(layer3_on ? layer23 : layer2, false);
+    } else {
+        oled_write_P(layer3_on ? layer3 : empty, false);
+    }
+
+    oled_write_P(hr, false);
+
+    if (mod0_on) {
+        oled_write_P(mod1_on ? mod01 : mod0, false);
+    } else {
+        oled_write_P(mod1_on ? mod1 : empty, false);
+    }
+
+    if (mod2_on) {
+        oled_write_P(mod3_on ? mod23 : mod2, false);
+    } else {
+        oled_write_P(mod3_on ? mod3 : empty, false);
+    }
+
+    oled_write_P(hr, false);
+    oled_write_P(caps_lock_on ? capslock_enabled : capslock_disabled, false);
+
+    return true;
+}
+
+bool led_update_user(led_t led_state) {
+    caps_lock_on = led_state.caps_lock;
+    return true;
 }
 
 #endif
@@ -307,13 +467,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
       case KC_ESC:
         if ((get_mods() & MOD_BIT(KC_LGUI)) == MOD_BIT(KC_LGUI)) {
-          if (record->event.pressed) {
-            register_code(KC_GRV);
-          } else {
-            unregister_code(KC_GRV);
+	  if ((get_mods() & MOD_BIT(KC_LALT)) != MOD_BIT(KC_LALT)) {
+            if (record->event.pressed) {
+              register_code(KC_GRV);
+            } else {
+              unregister_code(KC_GRV);
+            }
+            return false;
           }
-          return false;
-        }
+	}
         return true;
         break;
 

@@ -105,7 +105,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master())
@@ -143,10 +143,6 @@ void oled_task_user(void) {
 uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    #ifdef OLED_DRIVER_ENABLE
-    set_keylog(keycode, record);
-    #endif
-    // set_timelog();
   }
   mod_state = get_mods();
   switch (keycode) {
