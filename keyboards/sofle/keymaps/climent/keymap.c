@@ -84,10 +84,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_NAV] = LAYOUT( 
-  KC_TILD ,   C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                      C(KC_6), C(KC_7),      C(KC_8), C(KC_9),    C(KC_0), KC_TILD,
-  XXXXXXX ,   C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0),                      XXXXXXX, KC_VOLD,      KC_MUTE, KC_VOLU,    XXXXXXX, XXXXXXX,
-  G(C(KC_Q)), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, C(KC_LEFT),   XXXXXXX, C(KC_RGHT), XXXXXXX, XXXXXXX,
-  XXXXXXX ,   XXXXXXX, XXXXXXX, XXXXXXX, C(KC_LEFT), C(KC_RGHT), XXXXXXX,  XXXXXXX,   XXXXXXX, C(S(KC_TAB)), G(KC_R), C(KC_TAB),  XXXXXXX, _______,
+  KC_TILD , C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                      C(KC_6), C(KC_7),      C(KC_8), C(KC_9),    C(KC_0), KC_TILD,
+  KC_BSPC , C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0),                      XXXXXXX, KC_VOLD,      KC_MUTE, KC_VOLU,    XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX,                      XXXXXXX, C(KC_LEFT),   XXXXXXX, C(KC_RGHT), XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, C(KC_LEFT), C(KC_RGHT), XXXXXXX,  XXXXXXX,   XXXXXXX, C(S(KC_TAB)), G(KC_R), C(KC_TAB),  XXXXXXX, _______,
                        XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, KC_SPC,   G(KC_SPC), XXXXXXX, KC_ENT,       XXXXXXX, XXXXXXX
 ),
  
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, _______,
   KC_LCTRL,XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,                    KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, _______,  _______, XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, _______,
-                    KC_LOWER, XXXXXXX, KC_LALT, KC_LGUI, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+                    KC_LOWER, XXXXXXX, KC_LALT, KC_LGUI, XXXXXXX,  KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
 [_LAYER1] = LAYOUT( \
@@ -177,13 +177,10 @@ static void render_logo(void) {
 
     oled_write_P(qmk_logo, false);
 }
+*/
 
+/*
 static void print_status_narrow(void) {
-    // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("Jesus"), false);
-
-    oled_write_ln_P(PSTR(""), false);
 
     if (keymap_config.swap_lalt_lgui) {
         oled_write_ln_P(PSTR("SWAP"), true);
@@ -198,9 +195,7 @@ static void print_status_narrow(void) {
         default:
             oled_write_ln_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
-    // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
+
     switch (get_highest_layer(layer_state)) {
         case _QWERTY:
             oled_write_P(PSTR("Base\n"), false);
@@ -223,18 +218,9 @@ static void print_status_narrow(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-    oled_write_P(PSTR("\n\n"), false);
+
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
-}
-
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        print_status_narrow();
-    } else {
-        render_logo();
-    }
-    return false;
 }
 */
 
@@ -247,7 +233,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 static bool caps_lock_on = false;
 
-bool oled_task_user(void) {
+static void print_status_narrow(void) {
     static const char PROGMEM hr[] = {
         0x81, 0x81, 0x81, 0x81, 
         0x00,
@@ -394,12 +380,21 @@ bool oled_task_user(void) {
     oled_write_P(hr, false);
     oled_write_P(caps_lock_on ? capslock_enabled : capslock_disabled, false);
 
-    return true;
+    //return true;
 }
 
 bool led_update_user(led_t led_state) {
     caps_lock_on = led_state.caps_lock;
     return true;
+}
+
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
+        print_status_narrow();
+//    } else {
+//        render_logo();
+    }
+    return false;
 }
 
 #endif
@@ -561,3 +556,65 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+
+// Code to change scrolling_mode when the layer changes, and when RAISE is the highest layer
+static bool scrolling_mode = false;
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case _RAISE:  // If we're on the _RAISE layer enable scrolling mode
+            scrolling_mode = true;
+            pointing_device_set_cpi(1500);
+            break;
+        default:
+            if (scrolling_mode) {  // check if we were scrolling before and set disable if so
+                scrolling_mode = false;
+                pointing_device_set_cpi(18000);
+            }
+            break;
+    }
+    return state;
+}
+
+// When scrolling_mode is active, stop updating .x and .y, and update .h and .v (horizontal and vertical scrolling)
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (scrolling_mode) {
+        mouse_report.h = mouse_report.x;
+        mouse_report.v = - mouse_report.y;
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+/*
+void housekeeping_task_user(void) {
+    if (!is_keyboard_left()) {
+      if (!IS_LAYER_ON(_NAV)) {
+        if (IS_LAYER_ON(_RAISE) || IS_LAYER_ON(_LOWER)) {
+	  if (IS_LAYER_ON(_RAISE) && !IS_LAYER_ON(_LOWER)) {
+            pimoroni_trackball_set_rgbw(0,153,95,0);
+          }
+          if (IS_LAYER_ON(_LOWER) && !IS_LAYER_ON(_RAISE)) {
+            pimoroni_trackball_set_rgbw(153,113,0,0);
+          }
+	  if (IS_LAYER_ON(_RAISE) && IS_LAYER_ON(_LOWER)) {
+            pimoroni_trackball_set_rgbw(153,0,110,0);
+          }
+        } else {
+          pimoroni_trackball_set_rgbw(0,0,0,100);
+        }
+      } else {
+        pimoroni_trackball_set_rgbw(0,0,100,0);
+      }
+    }
+}
+*/
+//void keyboard_post_init_user(void) {
+//    if (!is_keyboard_left()) {
+//            pimoroni_trackball_set_rgbw(0,0,95,0);
+//    }
+//}
+
+#endif

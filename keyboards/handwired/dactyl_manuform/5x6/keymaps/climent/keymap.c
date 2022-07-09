@@ -48,7 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB , KC_Q  , KC_W  , KC_E  , KC_R  , KC_T  ,                         KC_Y  , KC_U  , KC_I  , KC_O  , KC_P  , KC_BSPC,
         KC_LCTL, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  , KC_SCLN,LT(_SYM, KC_QUOT),
 	KC_LSFT, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  , KC_COMM,KC_DOT ,KC_SLSH,KC_RSFT,
-                                 KC_LALT,KC_LGUI,KC_ENT,                         KC_ENT, KC_SPC, RAISE,                        
+//                                 KC_LALT,KC_LGUI,KC_ENT,                         KC_ENT, KC_SPC, RAISE,                        
+                                 KC_LALT,KC_LGUI,KC_ENT,                         KC_SPC, RAISE , KC_ENT,
                                          LOWER , KC_SPC,                         LOWER,  KC_RCTL
     ),
 
@@ -211,6 +212,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 #endif
 
+#ifdef RGBLIGHT_ENABLE
+
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {21, 10, HSV_RED}       // Light 10 LEDs, starting with LED 21
 );
@@ -249,3 +252,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
     return state;
 }
+
+#endif

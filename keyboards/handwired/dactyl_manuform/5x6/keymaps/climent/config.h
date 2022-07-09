@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef TAPPINT_TERM
+#ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 #endif
@@ -32,14 +32,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SOFT_SERIAL_PIN
 #undef SOFT_SERIAL_PIN
 #define SOFT_SERIAL_PIN D2
-#ifdef
+#endif
 
 #define RGBLIGHT_LIMIT_VAL 150
 #define RGBLIGHT_ANIMATIONS
 
 // WS2812 RGB LED strip input and number of LEDs
 #define RGB_DI_PIN D3
+#ifdef RGBLED_NUM
+#undef RGBLED_NUM
 #define RGBLED_NUM 31
+#endif
 #define RGBLED_SPLIT {31, 31}
 #define RGBLIGHT_DEFAULT_HUE 169
 

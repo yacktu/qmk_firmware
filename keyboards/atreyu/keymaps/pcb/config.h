@@ -26,7 +26,6 @@
 
 #define RETRO_TAPPING
 
-
 // Underglow settings
 #ifdef RGBLIGHT_ENABLE
 
