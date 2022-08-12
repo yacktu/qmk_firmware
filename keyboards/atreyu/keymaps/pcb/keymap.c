@@ -51,52 +51,52 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT(
-     KC_ESC  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                KC_6   , KC_7   , KC_8   , KC_9   , KC_0    ,KC_GRV ,
-     KC_TAB  , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                KC_Y   , KC_U   , KC_I   , KC_O   , KC_P    ,KC_BSPC ,
-     KC_LCTRL, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN ,LT(_SYM,KC_QUOT) ,
-     KC_LSFT , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,                KC_N   , KC_M   , KC_COMM, KC_DOT  ,KC_SLSH ,KC_RSFT ,
-     NAV,         LWR ,KC_LALT , KC_LGUI,KC_ENT , KC_LBRC ,                KC_RBRC, KC_SPC , RSE, OSL(_NAV) , KC_NO, KC_RCTRL 
+     KC_ESC  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                    KC_6   , KC_7   , KC_8   , KC_9   , KC_0    ,KC_EQL ,
+     KC_TAB  , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                    KC_Y   , KC_U   , KC_I   , KC_O   , KC_P    ,KC_BSPC ,
+     KC_GRV  , KC_A   , KC_S   , KC_D   , KC_F   , KC_G   ,                    KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN ,LT(_SYM,KC_QUOT) ,
+     KC_LSFT , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   ,                    KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH ,KC_MINS,
+     KC_LCTRL,         KC_LALT , KC_LGUI, LWR    , KC_ENT , KC_LBRC , KC_RBRC, KC_SPC , RSE    , KC_NO  ,  KC_NO , NAV
                 
   ),
 
-[_RAISE] = LAYOUT(\
-  _______, _______, _______, _______, _______, _______,                    KC_HOME, KC_END , _______, KC_LCBR, KC_RCBR, KC_TILD, \
-  _______, _______, _______, _______, KC_HOME, KC_END ,                    KC_PGUP, XXXXXXX, KC_UP  , KC_LBRC, KC_RBRC, KC_DEL , \
-  _______, _______, _______, _______, KC_NAV , _______,                    KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE, KC_ENT , \
-  _______, _______, _______, _______, _______, _______,                    KC_UNDS, KC_MINS, KC_EQL , KC_PLUS, KC_BSLS, _______, \
-  _______,          _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT,          _______
+[_RAISE] = LAYOUT(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, KC_UP  , XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL , 
+  XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,                    XXXXXXX, G(A(KC_LEFT)), G(A(KC_RGHT)), XXXXXXX, XXXXXXX, XXXXXXX, 
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, C(KC_A),                    C(KC_E), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, A(KC_B),  A(KC_F), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX
 ),
 
-[_LOWER] = LAYOUT( \
-  KC_GRV ,    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                         KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , _______, \
-  _______,    KC_VOLU, _______, _______, TG(_RAISE), AG_TOGG,                      _______, _______, _______, _______, _______, KC_DEL , \
-  G(C(KC_Q)), KC_VOLD, _______, _______, _______, _______,                         _______, C(KC_LEFT), _______, C(KC_RGHT), _______, _______, \
-  _______,    KC_CAPS, _______, _______, C(KC_LEFT), C(KC_RGHT),                   _______, C(S(KC_TAB)), C(KC_R) , C(KC_TAB), _______, _______, \
-  _______,                   _______, _______, _______, KC_SPC , KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______\
+[_LOWER] = LAYOUT(
+  XXXXXXX, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                    XXXXXXX, KC_P7  , KC_P8  , KC_P9  , XXXXXXX, XXXXXXX, 
+  XXXXXXX, KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 ,                    XXXXXXX, KC_P4  , KC_P5  , KC_P6  , XXXXXXX, KC_DEL , 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_P1  , KC_P2  , KC_P3  , XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_COMM, KC_P0  , KC_DOT , KC_BSLS, XXXXXXX, 
+  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX
 ),
 
-[_ADJUST] = LAYOUT(\
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, RGB_VAD, RGB_TOG, RGB_VAI, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, RGB_MOD, XXXXXXX, RGB_RMOD, XXXXXXX,                   XXXXXXX, C(S(KC_TAB)), XXXXXXX, C(KC_TAB), XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, RGB_HUI, XXXXXXX, RGB_HUD, XXXXXXX,                    XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX, \
-  _______,          _______, _______, _______, KC_SPC , KC_HOME, KC_END  , _______, _______, KC_RGUI, KC_RALT, _______\
+[_ADJUST] = LAYOUT(
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX
 ),
 
 [_NAV] = LAYOUT(
-  XXXXXXX , C(KC_1), C(KC_2), C(KC_3), C(KC_4), C(KC_5),                     C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0), KC_TILD,
-  XXXXXXX , C(KC_6), C(KC_7), C(KC_8), C(KC_9), C(KC_0),                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, C(KC_LEFT),   XXXXXXX,C(KC_RGHT), XXXXXXX, KC_ENT,
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, C(S(KC_TAB)), XXXXXXX, C(KC_TAB), XXXXXXX, _______,
-  XXXXXXX ,        XXXXXXX, XXXXXXX, KC_LGUI, KC_SPC, XXXXXXX, XXXXXXX,G(KC_SPC),XXXXXXX, KC_ENT, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, 
+  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID,  KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX
 ),
 
 [_SYM] = LAYOUT(
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, _______,
-  KC_LCTRL,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_LT,   KC_LPRN, KC_RPRN, KC_GT,   XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX, _______,
-  XXXXXXX,         XXXXXXX, KC_LALT, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX
 )
 
 };
